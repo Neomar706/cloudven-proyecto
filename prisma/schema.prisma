@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  email     String
+  message   String
+}
+
+model ServiceRequest {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 1. Información General del Cliente
+  companyName   String
+  contactPerson String
+  position      String
+  phone         String
+  email         String
+  address       String?
+  website       String?
+
+  // 2. Información del Proyecto
+  projectName        String
+  projectDescription String
+  projectObjective   String
+  targetAudience     String
+  platform           String // Web, Móvil, Desktop, Multiplataforma
+  operatingSystems   String
+  devices            String
+  projectScope       String // MVP, Beta, Producto final
+
+  // 3. Funcionalidades y Características
+  essentialFeatures     String
+  externalServices      String
+  authenticationMethods String
+  userManagement        String
+  multiLanguage         Boolean @default(false)
+  accessibility         Boolean @default(false)
+  customizationOptions  String
+  specificModules       String
+
+  // 4. Diseño y Experiencia de Usuario
+  visualStyle            String
+  visualReferences       String
+  colorSchemes           String
+  customizationLevel     String
+  interactionsAnimations String
+
+  // 5. Requerimientos Técnicos
+  preferredTech     String
+  systemIntegration String
+  dataStorage       String // local, cloud, hybrid
+  preferredDatabase String
+  scalability       String
+  securityMeasures  String
+
+  // 6. Gestión y Mantenimiento
+  updateFrequency   String
+  postLaunchSupport String
+  trainingNeeds     String
+  documentation     String
+
+  // 7. Presupuesto y Plazos
+  budget        String
+  deadline      String
+  criticalDates String
+  availability  String
+
+  // 8. Aspectos Legales
+  nda                  Boolean @default(false)
+  intellectualProperty String
+  legalCompliance      String
+
+  // 9. Otros Detalles
+  additionalComments    String
+  restrictions          String
+  existingDocumentation Boolean @default(false)
+}
